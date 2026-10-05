@@ -74,8 +74,9 @@ function showHint(n){
 function showSolution(review=false){
  const q=review?state.results[reviewIndex].question:state.questions[state.index];
  const answer=q.choices.find(c=>c.id===q.correct).label;
+ const lastStep=solutionStep===q.explanation.length-1;
  dialog(review?`Revisió ${reviewIndex+1} de 5`:state.selected===q.correct?'Ben fet! Porta oberta.':'Mirem la solució junts.',`${review?`<p class="review-prompt">${escape(q.prompt)}</p>`:''}<p class="solution-answer"><strong>Resposta correcta: ${escape(answer)}</strong></p><p class="step-label">Pas ${solutionStep+1} de ${q.explanation.length}</p><p class="solution-step">${escape(q.explanation[solutionStep])}</p>`,
- `<div class="step-navigation"><button class="escape-btn secondary small" data-action="step-back"${solutionStep===0?' disabled':''}>← Pas anterior</button><button class="escape-btn secondary small" data-action="step-forward"${solutionStep===q.explanation.length-1?' disabled':''}>Pas següent →</button></div>${review?`<div class="review-navigation"><button class="escape-btn secondary small" data-action="review-back"${reviewIndex===0?' disabled':''}>← Prova anterior</button><button class="escape-btn secondary small" data-action="review-forward"${reviewIndex===4?' disabled':''}>Prova següent →</button></div>`:`<button class="escape-btn" data-action="next">${state.index===4?'Mira el resultat final':'Continua a la prova següent'} →</button>`}`,
+ `<div class="step-navigation"><button class="escape-btn secondary small" data-action="step-back"${solutionStep===0?' disabled':''}>← Pas anterior</button><button class="escape-btn secondary small" data-action="step-forward"${lastStep?' disabled':''}>Pas següent →</button></div>${review?`<div class="review-navigation"><button class="escape-btn secondary small" data-action="review-back"${reviewIndex===0?' disabled':''}>← Prova anterior</button><button class="escape-btn secondary small" data-action="review-forward"${reviewIndex===4||!lastStep?' disabled':''}>Prova següent →</button></div>`:`<button class="escape-btn" data-action="next"${lastStep?'':' disabled'}>${state.index===4?'Mira el resultat final':'Continua a la prova següent'} →</button>`}`,
  review?'review':'solution');
 }
 function showGuide(){
@@ -106,7 +107,7 @@ root.addEventListener('click',event=>{
  if(action==='solution'){solutionStep=0;showSolution();return;}
  if(action==='review'){reviewIndex=0;solutionStep=0;showSolution(true);return;}
  if(action==='step-back'||action==='step-forward'){const review=root.querySelector('dialog')?.dataset.dialog==='review';solutionStep+=action==='step-back'?-1:1;showSolution(review);return;}
- if(action==='review-back'||action==='review-forward'){reviewIndex+=action==='review-back'?-1:1;solutionStep=0;showSolution(true);return;}
+ if(action==='review-back'||action==='review-forward'){if(action==='review-forward'&&solutionStep!==state.results[reviewIndex].question.explanation.length-1)return;reviewIndex+=action==='review-back'?-1:1;solutionStep=0;showSolution(true);return;}
  if(action==='check'&&state.selected){
   const outcome=D.submit(state,state.selected);
   if(outcome==='correct'||outcome==='wrong')window.ESCAPE_AUDIO.play(outcome);
@@ -116,7 +117,19 @@ root.addEventListener('click',event=>{
    else root.querySelector(`[data-action="hint${state.attempts}"]`)?.focus({preventScroll:true});
   }
  }
- if(action==='next'&&state.resolved){closeDialog();state.index++;if(state.index===5)results();else{Object.assign(state,{attempts:0,hints:0,selected:null,tried:[],resolved:false});view='observe';trial('trial-title');window.scrollTo(0,0);}}
+ if(action==='next'&&state.resolved&&solutionStep===state.questions[state.index].explanation.length-1){closeDialog();state.index++;if(state.index===5)results();else{Object.assign(state,{attempts:0,hints:0,selected:null,tried:[],resolved:false});view='observe';trial('trial-title');window.scrollTo(0,0);}}
+});
+document.addEventListener('click',event=>{
+ const homeLink=event.target.closest('[data-return-home]');
+ if(!homeLink||event.ctrlKey||event.metaKey||event.shiftKey||event.altKey)return;
+ event.preventDefault();window.ESCAPE_AUDIO.stop();
+ const homeUrl=new URL(homeLink.getAttribute('href'),location.href).href;
+ if(new URLSearchParams(location.search).get('popup')==='1'||window.opener){
+  try{if(window.opener&&!window.opener.closed){window.opener.location.href=homeUrl;window.opener.focus();}}catch{}
+  window.close();
+  // Directly opened tabs cannot always be closed by the browser.
+  setTimeout(()=>location.replace(homeUrl),250);
+ }else location.assign(homeUrl);
 });
 intro();
 })();

@@ -2,6 +2,7 @@
 (()=>{
 'use strict';
 let enabled=true,context=null,voices=[],lastPlayed=null;
+const NOTE_PEAK=.30;
 try{enabled=localStorage.getItem('geometria-escape-sound')!=='off';}catch{}
 const button=document.getElementById('sound-toggle');
 const sequences={
@@ -24,7 +25,7 @@ function play(name){
  const start=context.currentTime+.03;
  sequences[name].forEach(([frequency,offset,duration])=>{
   const tone=context.createOscillator(),gain=context.createGain();tone.type='sine';tone.frequency.value=frequency;
-  gain.gain.setValueAtTime(0,start+offset);gain.gain.linearRampToValueAtTime(.045,start+offset+.025);
+  gain.gain.setValueAtTime(0,start+offset);gain.gain.linearRampToValueAtTime(NOTE_PEAK,start+offset+.025);
   gain.gain.exponentialRampToValueAtTime(.001,start+offset+duration);
   tone.connect(gain);gain.connect(context.destination);tone.start(start+offset);tone.stop(start+offset+duration+.03);voices.push(tone);
   tone.onended=()=>{tone.disconnect();gain.disconnect();voices=voices.filter(v=>v!==tone);};

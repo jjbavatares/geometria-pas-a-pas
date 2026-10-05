@@ -7,7 +7,18 @@ const sectionTitles={triangles:'Triangles semblants',teoremes:'Teoremes',raons:'
 const theoremTopics=[['catet','1. Teorema del catet'],['altura','2. Teorema de l’altura'],['pitagores','3. Teorema de Pitàgores']];
 const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const txt=s=>esc(s).replace(/&lt;sub&gt;(.*?)&lt;\/sub&gt;/g,'<sub>$1</sub>').replace(/&lt;b&gt;(.*?)&lt;\/b&gt;/g,'<strong>$1</strong>');
-function math(x){if(typeof x==='string'||typeof x==='number')return txt(x);if(x[0]==='frac')return `<span class="frac"><span>${math(x[1])}</span><span>${math(x[2])}</span></span>`;if(x[0]==='root')return `<span class="root">${x[2]===3?'<sup>3</sup>':''}<span class="root-symbol">√</span><span class="radicand">${math(x[1])}</span></span>`;return x.map(math).join('');}
+function math(x,calculation=false){
+ if(typeof x==='string'||typeof x==='number')return txt(x);
+ if(x[0]==='frac'){
+  if(calculation){
+   const operand=value=>{const rendered=math(value,true);return typeof value==='string'&&!/[+−=·:]| - /.test(value)?rendered:`(${rendered})`;};
+   return `${operand(x[1])} : ${operand(x[2])}`;
+  }
+  return `<span class="frac"><span>${math(x[1])}</span><span>${math(x[2])}</span></span>`;
+ }
+ if(x[0]==='root')return `<span class="root">${x[2]===3?'<sup>3</sup>':''}<span class="root-symbol">√</span><span class="radicand">${math(x[1],calculation)}</span></span>`;
+ return x.map(value=>math(value,calculation)).join('');
+}
 function svg(inner,label,box='0 0 540 290'){return `<svg viewBox="${box}" role="img" aria-label="${esc(label)}">${inner}</svg>`;}
 function homeArt(){return svg('<path class="blue" d="M35 220H175L105 115Z"/><path class="teal" d="M235 220H515L375 10Z"/><text x="105" y="260" text-anchor="middle">Figura inicial</text><text x="375" y="260" text-anchor="middle">Figura ampliada</text>','Dos triangles amb la mateixa forma. El segon té els costats el doble de llargs.');}
 function guide(message){return `<aside class="guide" aria-label="Consell de la Guspira"><img src="assets/guspira.png" width="115" height="155" alt="La Guspira, científica amb bata i escaire"><div><div class="guide-name">LA GUSPIRA T’ACOMPANYA</div><p>${message}</p></div></aside>`;}
@@ -22,7 +33,7 @@ function sidebar(section,current,anchor=''){
  }).join('')}</nav></aside>`;
 }
 function caption(p,i){const k=p.check[0];const map={catet:['Substituïm les dades i multipliquem.','Fem l’arrel quadrada del producte.'],height:['Substituïm m i n. Multipliquem.','Fem l’arrel quadrada del producte.'],pyth:['Substituïm els catets a la fórmula.','Calculem els quadrats i els sumem.','Fem l’arrel quadrada.'],missing:['Substituïm la hipotenusa i el catet conegut.','Calculem els quadrats i restem.','Fem l’arrel quadrada.'],area:['Substituïm l’àrea inicial i la raó.','Calculem el quadrat de la raó i multipliquem.'],volume:['Substituïm el volum inicial i la raó.','Calculem el cub de la raó i multipliquem.'],rootratio:['Dividim la mesura final entre la inicial.','Fem l’arrel '+(+p.check[3]===2?'quadrada.':'cúbica.')],scale:['Substituïm l’escala i la mesura del dibuix.','Multipliquem per trobar la longitud real.','Convertim a la unitat que ens demanen.'],tales:['Substituïm les dades a la proporció.','Multipliquem en creu.','Dividim per trobar x.'],nested:['Escrivim la proporció amb les dades.','Multipliquem i dividim per trobar x.'],shadow:['Relacionem altura i ombra de cada triangle.','Multipliquem i dividim per trobar l’altura.']};return map[k]?.[i]||'';}
-function problem(p,open=false){if(!p)return '';const drawing=window.GEOMETRIA_DIAGRAM?window.GEOMETRIA_DIAGRAM(p):'';return `<article class="problem" id="problema-${p.number}"><div class="problem-top"><div class="problem-label">Problema ${p.number}</div><p class="q">${txt(p.q)}</p>${drawing?`<div class="problem-figure">${drawing}</div>`:''}<p class="solution-line"><strong>Solució:</strong> ${txt(p.answer)}</p></div><details${open?' open':''}><summary>Resolució pas a pas</summary><div class="resolution"><h4>Dades</h4><ul>${p.data.map(d=>`<li>${txt(d)}</li>`).join('')}</ul><h4>Resolució</h4><p>Escrivim la fórmula que necessitem.</p><div class="formula"><span class="formula-inner">${math(p.formula)}</span></div><ol class="step-list">${p.steps.map((s,i)=>`<li><div>${caption(p,i)?`<span class="step-caption">${caption(p,i)}</span>`:''}<span class="equation">${math(s)}</span></div></li>`).join('')}</ol><h4>Solució</h4><p class="answer">${txt(p.answer)}</p></div></details></article>`;}
+function problem(p,open=false){if(!p)return '';const drawing=window.GEOMETRIA_DIAGRAM?window.GEOMETRIA_DIAGRAM(p):'';return `<article class="problem" id="problema-${p.number}"><div class="problem-top"><div class="problem-label">Problema ${p.number}</div><p class="q">${txt(p.q)}</p>${drawing?`<div class="problem-figure">${drawing}</div>`:''}<p class="solution-line"><strong>Solució:</strong> ${txt(p.answer)}</p></div><details${open?' open':''}><summary>Resolució pas a pas</summary><div class="resolution"><h4>Dades</h4><ul>${p.data.map(d=>`<li>${txt(d)}</li>`).join('')}</ul><h4>Resolució</h4><p>Escrivim la fórmula que necessitem.</p><div class="formula"><span class="formula-inner">${math(p.formula)}</span></div><ol class="step-list">${p.steps.map((s,i)=>`<li><div>${caption(p,i)?`<span class="step-caption">${caption(p,i)}</span>`:''}<span class="equation">${math(s,true)}</span></div></li>`).join('')}</ol><h4>Solució</h4><p class="answer">${txt(p.answer)}</p></div></details></article>`;}
 function scaleApplication(){
  const l=window.GEOMETRIA_LESSONS.escales;
  const ps=l.problems.map(n=>window.GEOMETRIA_PROBLEMS.find(p=>p.number===n));
@@ -53,7 +64,7 @@ function render(){
  window.scrollTo(0,0);
  if(anchor==='escales'&&section==='raons'&&id==='longitud')document.getElementById('escales')?.scrollIntoView({block:'start'});
 }
-document.addEventListener('click',e=>{if(e.target.closest('#escape-launch')&&!e.ctrlKey&&!e.metaKey&&!e.shiftKey&&!e.altKey){document.getElementById('escape-fallback').hidden=false;const gameWindow=window.open('escape-room.html','_blank','popup,width=1180,height=850');if(gameWindow){gameWindow.opener=null;e.preventDefault();}return;}const a=e.target.closest('a[href]');if(a&&['#teoria','#exemple','#exercicis','#main'].includes(a.getAttribute('href'))){e.preventDefault();document.querySelector(a.getAttribute('href'))?.scrollIntoView();}});
+document.addEventListener('click',e=>{if(e.target.closest('#escape-launch')&&!e.ctrlKey&&!e.metaKey&&!e.shiftKey&&!e.altKey){document.getElementById('escape-fallback').hidden=false;const gameWindow=window.open('escape-room.html?popup=1','_blank','popup,width=1180,height=850');if(gameWindow){gameWindow.opener=null;e.preventDefault();}return;}const a=e.target.closest('a[href]');if(a&&['#teoria','#exemple','#exercicis','#main'].includes(a.getAttribute('href'))){e.preventDefault();document.querySelector(a.getAttribute('href'))?.scrollIntoView();}});
 window.addEventListener('hashchange',render);render();
 window.GEOMETRIA_RENDER_MATH=math;
 })();

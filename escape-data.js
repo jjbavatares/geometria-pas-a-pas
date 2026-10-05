@@ -28,12 +28,12 @@ comparison.forEach(([w,h,W,H,yes,shape,object],i)=>{
  const factorPairs=[[fw,fh],[fw,fh+1],[fw+1,fh],[fw+1,fh+1],[1,1]];
  const options=factorPairs.map(([baseFactor,heightFactor],j)=>({
   id:j===0?(yes?'si':'no'):`factors-${j}`,
-  label:`${baseFactor===heightFactor?'Sí':'No'}. Base × ${baseFactor} i altura × ${heightFactor}.`,baseFactor,heightFactor
+  label:`${baseFactor===heightFactor?'Sí':'No'}. Base · ${baseFactor} i altura · ${heightFactor}.`,baseFactor,heightFactor
  }));
  add('compara',i,shape,object,pair(w,h),pair(W,H),options,yes?'si':'no',`Observa ${object}. Tenen la mateixa forma? Tria la resposta amb els factors correctes per a la base i l’altura.`,[
   'Mira una longitud cada vegada. Què has de fer per passar de la base inicial a la final?',
   `La base passa de ${w} a ${W}: multipliquem per ${fw}. Comprova si l’altura també es multiplica per ${fw}.`
- ],[`Base: ${W} ÷ ${w} = ${fw}.`,`Altura: ${H} ÷ ${h} = ${Number(fh.toFixed(2)).toLocaleString('ca-ES')}.`,yes?'El factor és el mateix. Les longituds són proporcionals i la forma es manté.':'Els factors són diferents. La figura s’ha deformat.']);
+ ],[`Base: ${W} : ${w} = ${fw}.`,`Altura: ${H} : ${h} = ${Number(fh.toFixed(2)).toLocaleString('ca-ES')}.`,yes?'El factor és el mateix. Les longituds són proporcionals i la forma es manté.':'Els factors són diferents. La figura s’ha deformat.']);
 });
 const enlargement=[
  [2,3,2,'triangle','una fulla del bosc'],[3,2,3,'rectangle','una placa de la Guspira'],
@@ -50,8 +50,8 @@ enlargement.forEach(([w,h,k,shape,object],i)=>{
   {id:'sense-canvi',label:dimensions(pair(w,h)),dimensions:pair(w,h)}
  ],'correcta',`Volem ampliar ${object}. Multiplica totes les longituds per ${k}. Quines mesures tindrà?`,[
   `Ampliar per ${k} vol dir multiplicar cada longitud per ${k}. No hi sumem ${k}.`,
-  `Comença per la base: ${w} × ${k} = ${w*k} cm. Ara aplica el mateix factor a l’altura.`
- ],[`Base final: ${w} × ${k} = ${w*k} cm.`,`Altura final: ${h} × ${k} = ${h*k} cm.`,`Totes dues longituds es multipliquen per ${k}. La forma es manté.`]);
+  `Comença per la base: ${w} · ${k} = ${w*k} cm. Ara aplica el mateix factor a l’altura.`
+ ],[`Base final: ${w} · ${k} = ${w*k} cm.`,`Altura final: ${h} · ${k} = ${h*k} cm.`,`Totes dues longituds es multipliquen per ${k}. La forma es manté.`]);
 });
 const reduction=[
  [4,6,'triangle','una fulla per al quadern'],[6,8,'rectangle','el plànol d’un parterre'],
@@ -68,8 +68,8 @@ reduction.forEach(([w,h,shape,object],i)=>{
   {id:'sense-canvi',label:dimensions(pair(w,h)),dimensions:pair(w,h)}
  ],'correcta',`Necessitem reduir ${object} a la meitat. Quines mesures tindrà sense canviar de forma?`,[
   'La meitat d’una longitud es troba dividint-la entre 2.',
-  `La base serà ${w} ÷ 2 = ${w/2} cm. Divideix també l’altura entre 2.`
- ],[`Base final: ${w} ÷ 2 = ${w/2} cm.`,`Altura final: ${h} ÷ 2 = ${h/2} cm.`,`Dividim totes dues longituds entre 2. És el mateix que multiplicar-les per 0,5.`]);
+  `La base serà ${w} : 2 = ${w/2} cm. Divideix també l’altura entre 2.`
+ ],[`Base final: ${w} : 2 = ${w/2} cm.`,`Altura final: ${h} : 2 = ${h/2} cm.`,`Dividim totes dues longituds entre 2. És el mateix que multiplicar-les per 0,5.`]);
 });
 const missing=[
  [2,3,6,'triangle','un suport triangular del pont'],[3,2,6,'rectangle','una placa del pont'],
@@ -87,8 +87,8 @@ missing.forEach(([w,h,W,shape,object],i)=>{
   ...extra.map((value,j)=>({id:`mesura-${j+1}`,label:`${value} cm`,value}))
  ],'correcta',`Ampliem ${object} sense deformar-lo. La base passa de ${w} cm a ${W} cm. Quant ha de fer l’altura final?`,[
   'Primer troba per quin nombre s’ha multiplicat la base.',
-  `${W} ÷ ${w} = ${k}. Multiplica l’altura inicial per ${k}, el mateix factor.`
- ],[`Factor: ${W} ÷ ${w} = ${k}.`,`Altura final: ${h} × ${k} = ${H} cm.`,`Base i altura canvien pel mateix factor, ${k}.`]);
+  `${W} : ${w} = ${k}. Multiplica l’altura inicial per ${k}, el mateix factor.`
+ ],[`Factor: ${W} : ${w} = ${k}.`,`Altura final: ${h} · ${k} = ${H} cm.`,`Base i altura canvien pel mateix factor, ${k}.`]);
 });
 const deformation=[
  [2,3,4,9,'triangle','la fulla del far'],[3,2,9,4,'rectangle','el cartell del far'],

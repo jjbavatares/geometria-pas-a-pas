@@ -32,6 +32,8 @@ En aquest material, **Raó_Àrea** i **Raó_Volum** designen el **factor de long
 
 ## Presentació
 
+Les operacions de divisió utilitzen `:` i les de multiplicació, `·`. Les fórmules de la teoria conserven les fraccions dels apunts. En l’Escape Room, cal arribar a l’últim pas de l’explicació abans de passar a la prova següent o al resultat final. Els quatre sons tenen un volum reforçat. «Torna a l’inici» tanca la finestra oberta pel joc; si el navegador impedeix el tancament, mostra l’inici en aquella pestanya.
+
 Estil de còmic científic, amb una mateixa Guspira a totes les pantalles, idees importants en verd i negreta, fórmules amb fraccions i arrels, i resolucions desplegables.
 
 La teoria de semblança inclou un exemple de triangles 3–4–5 i 6–8–10 amb costats i angles homòlegs marcats per colors, i una comparació a la mateixa escala entre un rectangle 4 × 2, una ampliació 8 × 4 i una deformació 8 × 6.
