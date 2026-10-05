@@ -64,7 +64,19 @@ function render(){
  window.scrollTo(0,0);
  if(anchor==='escales'&&section==='raons'&&id==='longitud')document.getElementById('escales')?.scrollIntoView({block:'start'});
 }
-document.addEventListener('click',e=>{if(e.target.closest('#escape-launch')&&!e.ctrlKey&&!e.metaKey&&!e.shiftKey&&!e.altKey){document.getElementById('escape-fallback').hidden=false;const gameWindow=window.open('escape-room.html?popup=1','_blank','popup,width=1180,height=850');if(gameWindow){gameWindow.opener=null;e.preventDefault();}return;}const a=e.target.closest('a[href]');if(a&&['#teoria','#exemple','#exercicis','#main'].includes(a.getAttribute('href'))){e.preventDefault();document.querySelector(a.getAttribute('href'))?.scrollIntoView();}});
+function escapeWindowFeatures(){
+ const screen=window.screen;
+ const availableWidth=screen.availWidth||screen.width;
+ const availableHeight=screen.availHeight||screen.height;
+ const width=Math.min(1180,Math.max(1,availableWidth-32));
+ const height=Math.min(850,Math.max(1,availableHeight-80));
+ const originLeft=Number.isFinite(screen.availLeft)?screen.availLeft:0;
+ const originTop=Number.isFinite(screen.availTop)?screen.availTop:0;
+ const left=Math.round(originLeft+(availableWidth-width)/2);
+ const top=Math.round(originTop+(availableHeight-height)/2);
+ return `popup,width=${width},height=${height},left=${left},top=${top}`;
+}
+document.addEventListener('click',e=>{if(e.target.closest('#escape-launch')&&!e.ctrlKey&&!e.metaKey&&!e.shiftKey&&!e.altKey){document.getElementById('escape-fallback').hidden=false;const gameWindow=window.open('escape-room.html?popup=1','_blank',escapeWindowFeatures());if(gameWindow){gameWindow.opener=null;e.preventDefault();}return;}const a=e.target.closest('a[href]');if(a&&['#teoria','#exemple','#exercicis','#main'].includes(a.getAttribute('href'))){e.preventDefault();document.querySelector(a.getAttribute('href'))?.scrollIntoView();}});
 window.addEventListener('hashchange',render);render();
 window.GEOMETRIA_RENDER_MATH=math;
 })();
