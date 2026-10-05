@@ -56,3 +56,14 @@ body.escape-body{height:100dvh;display:flex;flex-direction:column;overflow:hidde
 .escape-body .hint-buttons .escape-btn.hint-ready:hover{background:#ffc95a}
 .escape-body .hint-buttons .escape-btn.hint-used{background:#e6f3ed;border-color:#39735c}
 .escape-body .escape-dialog{background:#fff0b8;border-color:#7547a8}
+
+/* Distingim la resposta encertada de la solució que el joc revela després d'un error. */
+.escape-body .solution-status{padding:10px 12px;margin:0 0 10px;border-radius:10px;font-size:16px;line-height:1.4;border:2px solid}
+.escape-body .solution-status.is-incorrect{background:#ffe4e6;color:#941f30;border-color:#ba3347}
+.escape-body .solution-status.is-incorrect span{display:block;margin-top:4px}
+.escape-body .solution-status.is-correct{background:#ddf3e6;color:#14633f;border-color:#39735c}
+.escape-body .solution-shown{background:#e8f0ff;border-left-color:#1749b0;color:#1749b0}
+.escape-body .solution-shown strong,.escape-body .solution-shown .triangle-number{color:#1749b0}
+.escape-body .answer-option.revealed-answer,.escape-body .picture-option.revealed-answer{background:#e8f0ff;border-color:#1749b0;color:#1749b0;opacity:1;box-shadow:none}
+.escape-body .picture-option.revealed-answer .picture-letter{background:white;border-color:#1749b0;color:#1749b0}
+@media(max-width:680px){.escape-body .solution-status{font-size:14px;padding:8px 10px;margin-bottom:8px}}

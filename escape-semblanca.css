@@ -1,0 +1,128 @@
+/* Tot queda limitat a l’apartat de semblança i al seu joc. */
+.semblance-guide img{width:145px;height:150px;object-fit:contain}
+.semblance-banner{background:#f0e3ff;border-color:#63439b;box-shadow:6px 7px 0 #63439b;margin:4px 0 38px}
+.semblance-banner .escape-kicker{color:#63439b}
+.semblance-banner .escape-btn{background:#ffdb60}
+.semblance-banner>img{aspect-ratio:4/3;object-fit:cover;height:100%}
+body.semblanca-escape{background-color:#e9ddff}
+.semblanca-escape .trial-card{border-color:#63439b}
+.semblanca-escape .trial-visual{background:#f5f0ff;border-color:#c5afe0}
+.semblanca-escape .shape-grid svg{max-height:290px}
+.semblanca-escape .shape-grid.many svg{max-height:210px}
+.semblanca-escape .shape-grid svg text{font-family:"Segoe Print","Comic Sans MS",sans-serif}
+.semblanca-escape .initial-measures{color:#3b3752}
+@media(max-width:980px),(max-height:650px){.semblanca-escape .shape-grid svg{max-height:none}.semblanca-escape .shape-grid.many svg{max-height:none}}
+@media(max-width:680px){.semblance-guide img{width:95px;height:115px}.semblance-banner>img{height:190px;aspect-ratio:auto}.semblanca-escape .answer-option{font-size:14px}}
+
+/* Aquest joc mostra el model i les cinc respostes alhora, sense passos ocults. */
+body.semblanca-escape{overflow:auto;min-height:100dvh;height:100dvh}
+.semblanca-escape #game{min-height:0}
+.semblanca-escape .picture-intro,.semblanca-escape .picture-main{gap:12px;padding:16px 24px}
+.semblanca-escape .temple-welcome{height:100%;display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:32px;max-width:1150px;margin:auto}
+.semblanca-escape .welcome-copy>p{margin:10px 0;font-size:16px;line-height:1.5}
+.semblanca-escape .welcome-copy h1{font-size:32px}
+.semblanca-escape .welcome-copy .escape-coach{margin:12px 0;padding:12px;gap:14px}
+.semblanca-escape .welcome-copy .escape-coach img{width:82px;height:100px}
+.semblanca-escape .picture-rules{padding:0;list-style:none;counter-reset:rule;display:grid;gap:8px;margin:14px 0;font-size:18px}
+.semblanca-escape .picture-rules li{counter-increment:rule;display:flex;gap:9px;align-items:center}
+.semblanca-escape .picture-rules li:before{content:counter(rule);background:#63439b;color:white;border-radius:50%;width:27px;height:27px;display:grid;place-items:center;flex:none;font-size:16px}
+.semblanca-escape .welcome-hints{background:#fff0b8;border-left:4px solid #c47b00;padding:10px 12px;border-radius:8px}
+.semblanca-escape .welcome-materials{background:#ddf3e6;padding:10px 12px;border-radius:8px}
+.semblanca-escape .welcome-art{display:flex;flex-direction:column;gap:14px;min-width:0}
+.semblanca-escape .welcome-art>img{width:100%;height:clamp(150px,32vh,320px);object-fit:cover;border:3px solid #172a41;border-radius:16px;box-shadow:5px 6px 0 #63439b}
+.semblanca-escape .welcome-art>p{font-size:14px;text-align:center;margin:0;line-height:1.4}
+.semblanca-escape .welcome-art .start-button{font-size:24px;min-height:64px}
+.semblanca-escape .picture-trial{background:#fff;border:2px solid #63439b;box-shadow:5px 6px 0 #bca7d7;border-radius:18px;padding:14px 18px;flex:1;min-height:0;display:flex;flex-direction:column;gap:12px}
+.semblanca-escape .picture-heading{display:flex;gap:18px;align-items:center;flex:none;min-width:0}
+.semblanca-escape .picture-heading>div{flex:1;min-width:0}
+.semblanca-escape .picture-heading h1{font-size:clamp(20px,2vw,28px);line-height:1.4}
+.semblanca-escape .picture-guspira{width:80px;height:88px;object-fit:contain;flex:none}
+.semblanca-escape .picture-play{display:grid;grid-template-columns:210px minmax(0,1fr);gap:18px;flex:1;min-height:0}
+.semblanca-escape .picture-play.no-model{grid-template-columns:1fr}
+.semblanca-escape .picture-model{display:flex;flex-direction:column;align-items:center;justify-content:center;min-width:0;min-height:0;background:#fff0b8;border:2px dashed #ad7818;border-radius:14px;padding:8px;margin:0}
+.semblanca-escape .picture-model figcaption{font-size:18px;font-weight:bold;flex:none}
+.semblanca-escape .picture-model p{font-size:15px;margin:0;flex:none}
+.semblanca-escape .picture-model svg{width:100%;height:min(20dvh,140px);max-height:140px;min-height:0;flex:none}
+.semblanca-escape .picture-options{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));grid-template-rows:repeat(2,minmax(0,1fr));gap:12px;min-width:0;min-height:0}
+.semblanca-escape .picture-option{display:flex;align-items:center;justify-content:center;position:relative;min-height:0;min-width:0;border:3px solid #8093b5;background:#eef5ff;border-radius:14px;padding:8px 12px;cursor:pointer;color:#172a41;font:inherit}
+.semblanca-escape .picture-option svg{display:block;height:100%;width:100%;min-height:0;max-height:200px}
+.semblanca-escape .picture-letter{position:absolute;top:8px;left:8px;width:32px;height:32px;border:2px solid #8093b5;border-radius:50%;background:white;font-weight:bold;font-size:20px;display:grid;place-items:center}
+.semblanca-escape .picture-option:hover:not(:disabled){background:#e2e8ff;border-color:#63439b}
+.semblanca-escape .picture-option[aria-pressed=true]{border-color:#63439b;background:#e7d8ff;box-shadow:inset 0 0 0 2px #63439b}
+.semblanca-escape .picture-option[aria-pressed=true] .picture-letter{background:#63439b;color:white;border-color:#63439b}
+.semblanca-escape .picture-option:focus-visible{outline:3px solid #ff9800;outline-offset:2px}
+.semblanca-escape .picture-option:disabled{cursor:default}
+.semblanca-escape .picture-option.tried,.semblanca-escape .picture-option.wrong-answer{background:#ffe7e7;border-color:#ac3e48;opacity:.65}
+.semblanca-escape .picture-option.tried .picture-letter:after{content:'×';position:absolute;inset:0;background:#ac3e48;color:white;border-radius:50%}
+.semblanca-escape .picture-option.correct-answer{background:#dcf4e5;border-color:#147348;opacity:1}
+.semblanca-escape .picture-option.correct-answer .picture-letter{background:#147348;border-color:#147348;color:white}
+.semblanca-escape .picture-controls{flex:none;display:flex;flex-direction:column;gap:8px;width:100%;max-width:none;margin:0;padding:0;border:0;text-align:left;color:#172a41}
+.semblanca-escape .picture-actions{display:grid;grid-template-columns:1fr 1fr;gap:16px;align-items:center}
+.semblanca-escape .picture-actions .hint-buttons{gap:12px}
+.semblanca-escape .picture-controls .attempt-note{font-size:15px;line-height:1.5;min-height:23px}
+.semblanca-escape .escape-dialog{overflow:auto;max-height:calc(100dvh - 24px);padding:18px;font-size:17px}
+.semblanca-escape .solution-answer{display:flex;align-items:center;gap:12px;margin:0;padding:8px 12px}
+.semblanca-escape .solution-picture{width:90px;height:80px;flex:none}
+.semblanca-escape .solution-picture svg{width:100%;height:100%}
+.semblanca-escape .dialog-actions{margin-top:14px;gap:10px}
+.semblanca-escape .solution-step{padding:10px 12px}
+@media(max-width:900px){
+ .semblanca-escape .picture-play{grid-template-columns:155px minmax(0,1fr);gap:12px}
+ .semblanca-escape .picture-options{gap:8px}
+ .semblanca-escape .picture-guspira{width:65px;height:70px}
+ .semblanca-escape .temple-welcome{gap:20px}
+ .semblanca-escape .welcome-copy h1{font-size:27px}
+ .semblanca-escape .welcome-copy>p{font-size:15px}
+ .semblanca-escape .picture-rules{font-size:16px;gap:6px}
+}
+@media(max-height:650px) and (min-width:681px){
+ .semblanca-escape .picture-intro,.semblanca-escape .picture-main{padding:10px 18px;gap:8px}
+ .semblanca-escape .welcome-copy>p{font-size:14px;margin:6px 0}
+ .semblanca-escape .welcome-copy h1{font-size:26px}
+ .semblanca-escape .welcome-copy .escape-coach{padding:6px 10px;margin:6px 0}
+ .semblanca-escape .welcome-copy .escape-coach img{width:60px;height:65px}
+ .semblanca-escape .welcome-copy .escape-coach p{font-size:14px}
+ .semblanca-escape .picture-rules{font-size:15px;margin:8px 0;gap:4px}
+ .semblanca-escape .picture-trial{padding:10px 14px;gap:8px}
+ .semblanca-escape .picture-guspira{height:58px;width:58px}
+ .semblanca-escape .picture-heading h1{font-size:22px}
+}
+@media(max-width:680px){
+ .semblanca-escape .picture-main,.semblanca-escape .picture-intro{padding:8px 10px;gap:8px}
+ .semblanca-escape .temple-welcome{display:flex;flex-direction:column;justify-content:center;gap:10px;height:auto;min-height:100%;width:100%}
+ .semblanca-escape .welcome-copy>p{font-size:15px;line-height:1.45;margin:6px 0}
+ .semblanca-escape .welcome-copy h1{font-size:23px}
+ .semblanca-escape .welcome-copy .escape-coach{padding:6px 8px;gap:8px;margin:6px 0}
+ .semblanca-escape .welcome-copy .escape-coach img{width:48px;height:52px}
+ .semblanca-escape .welcome-copy .escape-coach p{font-size:15px}
+ .semblanca-escape .picture-rules{font-size:14px;gap:4px;margin:8px 0}
+ .semblanca-escape .picture-rules li:before{font-size:13px;width:22px;height:22px}
+ .semblanca-escape .welcome-copy .welcome-hints,.semblanca-escape .welcome-copy .welcome-materials{padding:6px 8px}
+ .semblanca-escape .welcome-art{width:100%;gap:8px}
+ .semblanca-escape .welcome-art>img{height:90px}
+ .semblanca-escape .welcome-art .start-button{font-size:20px;min-height:48px;padding:8px}
+ .semblanca-escape .welcome-art>p{font-size:12px}
+ .semblanca-escape .picture-trial{padding:9px;gap:8px}
+ .semblanca-escape .picture-heading{gap:8px}
+ .semblanca-escape .picture-heading h1{font-size:18px;line-height:1.4}
+ .semblanca-escape .picture-guspira{width:44px;height:54px}
+ .semblanca-escape .picture-play{grid-template-columns:1fr;grid-template-rows:100px minmax(0,1fr);gap:8px}
+ .semblanca-escape .picture-play.no-model{grid-template-rows:minmax(0,1fr)}
+ .semblanca-escape .picture-model{display:grid;grid-template-columns:1fr 1.4fr 1fr;gap:6px;padding:4px}
+ .semblanca-escape .picture-model figcaption{font-size:15px;text-align:center}
+ .semblanca-escape .picture-model p{font-size:13px;text-align:center}
+ .semblanca-escape .picture-model svg{width:100%;height:90px}
+ .semblanca-escape .picture-options{gap:6px}
+ .semblanca-escape .picture-option{padding:2px;border-radius:10px}
+ .semblanca-escape .picture-letter{top:3px;left:3px;width:23px;height:23px;font-size:14px;border-width:1px}
+ .semblanca-escape .picture-actions{gap:8px;grid-template-columns:1fr 1.2fr}
+ .semblanca-escape .picture-actions .hint-buttons{gap:6px}
+ .semblanca-escape .picture-controls .attempt-note{font-size:13px;min-height:20px}
+ .semblanca-escape .picture-controls .escape-btn{font-size:14px;min-height:40px;padding:6px}
+}
+/* En pantalles molt petites es permet llegir tot el contingut, sense retallar-lo. */
+@media(max-height:560px),(max-width:340px){
+ .semblanca-escape .picture-main{min-height:480px;height:auto}
+ .semblanca-escape .picture-trial{min-height:390px}
+ .semblanca-escape .picture-intro{height:auto;min-height:100%}
+}

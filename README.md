@@ -12,11 +12,15 @@ Web educativa en català per aprendre geometria amb explicacions breus, dibuixos
 
 L’Inici inclou **L’illa de les proporcions**, un Escape Room de cinc proves que s’obre en una finestra nova. El navegador pot mostrar-lo en una pestanya.
 
+Figures i cossos semblants inclou **El temple de les formes**; Triangles semblants inclou **El far dels triangles**, després de la teoria i abans de l’exemple resolt. Cadascun té 30 preguntes, cinc proves per partida, cinc opcions i dues ajudes guiades. El temple prioritza reconèixer formes amb dibuixos. El far practica angles homòlegs, AA (angle, angle), CCC (costat, costat, costat), CAC (costat, angle, costat) i un costat desconegut. La Guspira presenta una postura diferent a cada apartat.
+
 ## Escape Room
 
 El banc `escape-data.js` conté 30 situacions: sis de comparació, sis d’ampliació, sis de reducció, sis de mesura desconeguda i sis de detecció de deformacions. Cada partida tria una prova de cada grup, barreja l’ordre i les opcions, i evita les cinc preguntes de la partida anterior si l’emmagatzematge local està disponible.
 
 Cada prova té cinc opcions, una única resposta correcta i dues ajudes sense penalització. Les dues ajudes comencen desactivades. El primer error activa Ajuda 1; cal llegir-la abans de tornar a respondre. Si es falla després d’aquesta ajuda, s’activa Ajuda 2, que també cal llegir. Si el tercer intent és incorrecte, es mostra la solució explicada. Una resposta incorrecta ja provada es desactiva. Cada prova compta una sola vegada: encert si es resol en qualsevol dels tres intents; error si es fallen tots tres. Amb quatre o cinc encerts es mostra la victòria; amb zero, un, dos o tres, es proposa tornar a practicar. No hi ha rellotge ni recollida de dades personals.
+
+Als tres jocs, el tercer error mostra un avís vermell que indica que la prova compta com un error. La solució revelada es presenta en blau, sense felicitació. La revisió final conserva el resultat real de cada prova. Cal llegir l’últim pas de l’explicació abans de continuar.
 
 L’Escape Room utilitza una pantalla per pas, amb el botó d’inici gran sota la il·lustració. En finestres petites, els botons «Observa» i «Respon» separen el dibuix de les cinc opcions per mantenir la lletra llegible sense desplaçament. Les ajudes apareixen en finestres del joc. Les explicacions s’avancen un pas cada vegada i la revisió final mostra una prova cada vegada. La guia d’inici continua disponible amb «Com juguem?» en la presentació compacta.
 
