@@ -38,7 +38,10 @@ function trial(focus=null){
  const answerPrompt={compara:'Tenen la mateixa forma? Tria els factors correctes.',amplia:`Multiplica totes les longituds per ${q.final?q.final.w/q.initial.w:1}.`,redueix:'Redueix totes les longituds a la meitat.',completa:`La base final fa ${q.final?.w} cm. Quant fa l’altura?`,detecta:'Quina versió està deformada?'}[q.category];
  const initialText=`Inicial: base ${q.initial.w} cm; altura ${q.initial.h} cm.${q.category==='compara'?` Final: base ${q.final.w} cm; altura ${q.final.h} cm.`:''}`;
  const needsHint=!state.resolved&&state.attempts>state.hints;
- const hintButton=n=>`<button class="escape-btn secondary small" data-action="hint${n}"${state.hints>=n?'':state.attempts===n&&state.hints===n-1?'':' disabled'}>${state.hints>=n?'↻ ':''}Ajuda ${n}</button>`;
+ const hintButton=n=>{
+  const used=state.hints>=n,ready=!state.resolved&&state.attempts===n&&state.hints===n-1;
+  return `<button class="escape-btn secondary small${ready?' hint-ready':used?' hint-used':''}" data-action="hint${n}"${used||ready?'':' disabled'}>${used?'↻ ':ready?'💡 ':''}Ajuda ${n}</button>`;
+ };
  root.innerHTML=`<main id="game-main" class="escape-main trial-main" tabindex="-1">${scoreboard()}<div class="trial-layout"><aside class="trial-scene"><figure class="escape-art"><img src="assets/escape-${scene.image}.png" width="1672" height="941" alt="${scene.alt}"><figcaption>${scene.title}</figcaption></figure>${coach('<strong>El mateix factor</strong> per a totes les longituds.',trialPortraits[state.index])}</aside><article class="trial-card view-${view}" data-question="${q.id}"><div class="trial-heading"><p class="escape-kicker">PROVA ${state.index+1} DE 5 · ${scene.goal.toUpperCase()}</p><h1 id="trial-title" tabindex="-1">${scene.title}</h1><p id="trial-prompt" class="trial-prompt">${escape(q.prompt)}</p></div><nav class="trial-view-nav" aria-label="Passos de la prova"><button data-action="observe" aria-pressed="${view==='observe'}">1. Observa</button><button data-action="answer" aria-pressed="${view==='answer'}">2. Respon</button></nav><div class="trial-workspace">${visuals(q)}<div class="answer-workspace"><p class="answer-prompt">${answerPrompt}</p><p class="initial-measures">${initialText}</p><div class="answer-options" role="group" aria-labelledby="trial-prompt">${q.choices.map((c,i)=>`<button class="answer-option ${state.resolved?(c.id===q.correct?'correct-answer':c.id===state.selected?'wrong-answer':''):state.tried.includes(c.id)?'tried':''}" data-choice="${c.id}" aria-pressed="${state.selected===c.id}"${state.resolved||needsHint||state.tried.includes(c.id)?' disabled':''}><span class="choice-letter">${String.fromCharCode(65+i)}</span><span>${q.category==='detecta'?`Versió ${String.fromCharCode(65+i)}: `:''}${escape(c.label)}</span></button>`).join('')}</div><div class="trial-controls"><p class="attempt-note" role="status">${state.resolved?'Prova completada.':needsHint?`Encara no. Consulta l’Ajuda ${state.attempts}.`:state.hints?'Aplica l’ajuda i tria una altra resposta.':'Tria una opció i comprova-la.'}</p>${state.resolved?`<button class="escape-btn" data-action="solution">Veure la solució →</button>`:`<button class="escape-btn" data-action="check"${needsHint||!state.selected||state.tried.includes(state.selected)?' disabled':''} aria-label="Comprova la resposta">Comprova</button>`}<div class="hint-buttons">${hintButton(1)}${hintButton(2)}</div></div></div></div><button class="escape-btn observe-next" data-action="answer">Tria la resposta →</button></article></div></main>`;
  if(focus)document.getElementById(focus)?.focus({preventScroll:true});
 }
@@ -110,7 +113,8 @@ root.addEventListener('click',event=>{
  if(action==='review-back'||action==='review-forward'){if(action==='review-forward'&&solutionStep!==state.results[reviewIndex].question.explanation.length-1)return;reviewIndex+=action==='review-back'?-1:1;solutionStep=0;showSolution(true);return;}
  if(action==='check'&&state.selected){
   const outcome=D.submit(state,state.selected);
-  if(outcome==='correct'||outcome==='wrong')window.ESCAPE_AUDIO.play(outcome);
+  if(outcome==='correct')window.ESCAPE_AUDIO.play('correct');
+  else if(outcome==='retry'||outcome==='wrong')window.ESCAPE_AUDIO.play('wrong');
   if(outcome!=='ignored'){
    view='answer';trial();
    if(state.resolved){solutionStep=0;showSolution();}
