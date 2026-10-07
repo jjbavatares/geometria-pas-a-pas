@@ -1,0 +1,22 @@
+.practice-nav{display:flex;flex-wrap:wrap;gap:10px;margin:0 0 28px;padding:16px;background:#fff;border:2px solid var(--ink);border-radius:14px;align-items:center}
+.practice-nav>span{font-weight:700;margin-right:6px}
+.practice-jump{font:inherit;font-size:1rem;font-weight:700;padding:8px 16px;border:2px solid currentColor;border-radius:9px;background:#fff;cursor:pointer;color:var(--blue)}
+.practice-jump:hover{box-shadow:3px 3px 0 var(--ink);transform:translateY(-1px)}
+.practice-jump[data-practice-target="practica-c"]{color:#086140;background:#e8f7f3}
+.practice-jump[data-practice-target="practica-a"]{color:#8a3900;background:#fff3df}
+.practice-bank{margin-top:46px;border-top:3px solid var(--ink);padding-top:30px}
+.practice-intro{padding:24px;border:2px solid var(--ink);border-radius:18px;background:#fff5bf;box-shadow:4px 4px 0 #ddc566}
+.practice-intro p{margin-top:12px}
+.practice-level{margin-top:34px;--level-color:#086140;--level-bg:#e8f7f3}
+.practice-level[data-level="B"]{--level-color:#1749b0;--level-bg:#edf3ff}
+.practice-level[data-level="A"]{--level-color:#8a3900;--level-bg:#fff3df}
+.practice-level-head{padding:18px 22px;border:2px solid var(--level-color);border-left-width:8px;border-radius:14px;background:var(--level-bg);scroll-margin-top:24px}
+.practice-level-head h3{font-size:1.55rem;color:var(--level-color)}
+.practice-level-head p{margin-top:6px;font-size:1rem}
+.practice-problem{background:#fff;border:2px solid var(--ink);border-radius:16px;margin-top:18px;padding:24px 26px;box-shadow:4px 4px 0 #d4deee}
+.practice-problem h4{display:inline-block;color:var(--level-color);background:var(--level-bg);border-radius:8px;padding:4px 12px;font-size:1rem;margin-bottom:14px}
+.practice-problem .q{max-width:48rem;font-size:1.1rem;line-height:1.8}
+.practice-problem .solution-line{color:#075348;font-weight:700;border-left:4px solid #086140;margin-top:18px}
+.practice-problem .solution-line strong{color:inherit}
+@media(max-width:720px){.practice-nav{padding:14px;gap:8px}.practice-nav>span{width:100%}.practice-jump{padding:8px 12px}.practice-intro,.practice-problem{padding:20px}.practice-level-head{padding:16px}.practice-bank{margin-top:30px}}
+@media print{.practice-nav{display:none}.practice-problem{break-inside:avoid;box-shadow:none}.practice-level-head{break-after:avoid}}

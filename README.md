@@ -8,7 +8,7 @@ Web educativa en català per aprendre geometria amb explicacions breus, dibuixos
 - Triangles semblants: semblança, criteris AA/CCC/CAC, Tales i posició de Tales.
 - Teoremes: catet, altura i Pitàgores.
 - Raó de semblança: longitud, àrea i volum. Les escales són una aplicació dins de la raó de longitud, amb teoria i exemples resolts.
-- Problemes de tot tipus: 70 problemes, distribuïts en deu grups de cinc i vint problemes barrejats. Cada problema inclou dades, resolució i solució.
+- Problemes de tot tipus: 70 problemes resolts, distribuïts en deu grups de cinc i vint problemes barrejats. Cada problema resolt inclou dades, resolució i solució. Al final de cadascun dels onze apartats hi ha 15 problemes de pràctica: cinc del grup C (inicial), cinc del B (intermedi) i cinc de l’A (més passos). Els 165 problemes de pràctica mostren l’enunciat i la resposta final, sense resolució, amb aplicacions quotidianes i les convencions dels apunts.
 
 L’Inici inclou **L’illa de les proporcions**, un Escape Room de cinc proves que s’obre en una finestra nova. El navegador pot mostrar-lo en una pestanya.
 
@@ -48,6 +48,6 @@ La lletra principal és **Segoe Print**, com als apunts, quan està instal·lada
 
 Web estàtica compatible amb GitHub Pages. La publicació utilitza la branca `main` i la carpeta arrel. No necessita servidor d’aplicació, contrasenyes ni claus d’accés.
 
-Per revisar-la localment, serveix aquesta carpeta amb un servidor HTTP i obre `index.html`. Els fitxers de contingut són `content.js` i `problems.js`; els dibuixos dels problemes són a `diagrams.js`.
+Per revisar-la localment, serveix aquesta carpeta amb un servidor HTTP i obre `index.html`. Els fitxers de contingut són `content.js`, `problems.js` i `practice-problems.js`; els dibuixos dels problemes resolts són a `diagrams.js`. La presentació dels grups de pràctica és a `practice-problems.css`.
 
 La il·lustració de la Guspira s’ha generat amb una eina d’imatges. Els esquemes matemàtics són dibuixos SVG del projecte.
