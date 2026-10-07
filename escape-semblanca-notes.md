@@ -2,7 +2,7 @@
 
 Publicació a GitHub Pages juntament amb les novetats de Triangles semblants.
 
-- Integrat a Figures i cossos semblants, abans de la teoria; accés també des de l’índex de l’apartat.
+- Integrat a Figures i cossos semblants, després de tota la teoria i els seus exemples gràfics, just abans de «La Guspira resol un exemple»; accés també des de l’índex de l’apartat.
 - Cinc portes amb fil conductor fix: figures planes i cossos, mateixa forma, peces girades, ampliacions sense deformar, semblança de cossos.
 - Banc de 30 proves, sis per porta. Cada partida selecciona una de cada grup i evita les de la partida anterior quan es pot desar la preferència.
 - Cinc opcions dibuixades i clicables, amb el model visible alhora. Una pregunta curta i cap càlcul.

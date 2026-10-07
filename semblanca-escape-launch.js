@@ -10,7 +10,7 @@ function enhance(){
  if(image){image.src='assets/guspira-observa.png';image.alt='La Guspira de mig cos, amb llibreta i llapis, observant les figures';guide.classList.add('semblance-guide');}
  const banner=document.createElement('section');banner.id='escape-figures';banner.className='escape-banner semblance-banner';banner.setAttribute('aria-labelledby','escape-figures-title');
  banner.innerHTML=`<img src="assets/escape-temple.png" width="1672" height="941" alt="El temple de les formes: portals i plantes geomètriques a l’illa" loading="lazy"><div><p class="escape-kicker">FIGURES I COSSOS SEMBLANTS · ESCAPE ROOM</p><h2 id="escape-figures-title">El temple de les formes</h2><p>El temple ha perdut les seves peces. Obre <strong>cinc portes</strong> amb la Guspira: observa, compara i descobreix quines figures i cossos conserven la forma.</p><p>Cinc opcions, dues ajudes i una explicació pas a pas. <strong>Sense límit de temps.</strong></p><a class="escape-btn" href="escape-semblanca.html" target="_blank" rel="noopener" data-semblanca-launch>Entra al temple ↗</a><p class="new-window-note">S’obre en una finestra nova.</p><p id="semblance-fallback" class="new-window-note" hidden>Si no s’ha obert, <a href="escape-semblanca.html">obre el joc aquí</a>.</p></div>`;
- guide?.after(banner);
+ content.querySelector(':scope > #exemple')?.before(banner);
  const nav=content.querySelector('.lesson-index');
  const link=document.createElement('a');link.href='#escape-figures';link.textContent='Escape Room';link.dataset.semblancaJump='';nav?.append(link);
 }
