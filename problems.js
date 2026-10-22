@@ -346,7 +346,12 @@ window.GEOMETRIA_PROBLEMS = [
         ]
       ],
       [
-        "4 · x = 8 · 6"
+        "x = ",
+        [
+          "frac",
+          "8 · 6",
+          "4"
+        ]
       ],
       [
         "x = ",
@@ -366,7 +371,12 @@ window.GEOMETRIA_PROBLEMS = [
       "8",
       "12"
     ],
-    "number": 8
+    "number": 8,
+    "stepCaptions": [
+      "Substituïm les dades a la proporció.",
+      "Multipliquem en creu i aïllem x.",
+      "Calculem el producte i dividim per trobar x."
+    ]
   },
   {
     "q": "Tres carrers paral·lels tallen dues avingudes rectes en un plànol. En una secant, dos segments consecutius fan a = 5 cm i a′ = 3 cm. Els segments homòlegs de l’altra secant fan b = 10 cm i b′ = x. Calcula x.",
