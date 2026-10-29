@@ -18,5 +18,10 @@
 .practice-problem .q{max-width:48rem;font-size:1.1rem;line-height:1.8}
 .practice-problem .solution-line{color:#075348;font-weight:700;border-left:4px solid #086140;margin-top:18px}
 .practice-problem .solution-line strong{color:inherit}
+.practice-figure{max-width:600px;margin:22px auto 0;padding:12px;background:#f8fbff;border:1px solid var(--line);border-radius:10px}
+.practice-figure svg text{font-size:23px}
+.practice-figure svg .practice-point{font-size:21px}
+.practice-figure svg .practice-unknown{fill:#086140;font-weight:700}
+.practice-figure figcaption{font-size:.85rem;line-height:1.5;color:var(--muted);margin-top:8px}
 @media(max-width:720px){.practice-nav{padding:14px;gap:8px}.practice-nav>span{width:100%}.practice-jump{padding:8px 12px}.practice-intro,.practice-problem{padding:20px}.practice-level-head{padding:16px}.practice-bank{margin-top:30px}}
 @media print{.practice-nav{display:none}.practice-problem{break-inside:avoid;box-shadow:none}.practice-level-head{break-after:avoid}}

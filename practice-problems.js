@@ -72,15 +72,18 @@ window.GEOMETRIA_PRACTICE = {
     "C": [
       {
         "q": "Tres rectes paral·leles tallen dues secants. Els segments consecutius són AB i BC en una secant, i A′B′ i B′C′ en l’altra, respectivament. AB = 1 cm, BC = 3 cm i A′B′ = 2 cm. Calcula B′C′.",
-        "answer": "6 cm."
+        "answer": "6 cm.",
+        "diagram": "tales"
       },
       {
         "q": "Tres rectes paral·leles tallen dues secants. Els segments consecutius són AB i BC en una secant, i A′B′ i B′C′ en l’altra, respectivament. AB = 3 cm, BC = 4 cm i A′B′ = 6 cm. Calcula B′C′.",
-        "answer": "8 cm."
+        "answer": "8 cm.",
+        "diagram": "tales"
       },
       {
         "q": "Tres rectes paral·leles tallen dues secants. Els segments consecutius són AB i BC en una secant, i A′B′ i B′C′ en l’altra, respectivament. AB = 4 cm, BC = 2 cm i A′B′ = 8 cm. Calcula B′C′.",
-        "answer": "4 cm."
+        "answer": "4 cm.",
+        "diagram": "tales"
       },
       {
         "q": "Tres rectes paral·leles tallen dues secants. Els segments consecutius són AB i BC en una secant, i A′B′ i B′C′ en l’altra, respectivament. AB = 5 cm, BC = 4 cm i A′B′ = 15 cm. Calcula B′C′.",
@@ -88,7 +91,8 @@ window.GEOMETRIA_PRACTICE = {
       },
       {
         "q": "Tres rectes paral·leles tallen dues secants. Els segments consecutius són AB i BC en una secant, i A′B′ i B′C′ en l’altra, respectivament. AB = 2 cm, BC = 4 cm i A′B′ = 6 cm. Calcula B′C′.",
-        "answer": "12 cm."
+        "answer": "12 cm.",
+        "diagram": "tales"
       }
     ],
     "B": [

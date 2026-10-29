@@ -13,3 +13,23 @@ function pair(initial,final,kind,ratio){let s=ratio<1?135:70,t=ratio<1?70:135;re
 function angleTriangle(x,A,B){let h=160/(1/Math.tan(A*Math.PI/180)+1/Math.tan(B*Math.PI/180)),tx=x+h/Math.tan(A*Math.PI/180);return `<path class="blue" d="M${x} 245h160L${tx} ${245-h}Z"/>`+T(x,279,A+'°')+T(x+160,279,B+'°')+T(tx,222-h,(180-A-B)+'°');}
 window.GEOMETRIA_DIAGRAM=p=>{let c=p.check,k=c[0];if(k==='rectangles')return rects(...c.slice(1,5));if(k==='square')return rects(c[1],c[1],c[2],c[2]);if(k==='circle')return S(`<circle class="blue" cx="145" cy="150" r="55"/><circle class="teal" cx="385" cy="150" r="100"/>`+T(145,282,`radi ${n(c[1])} cm`)+T(385,282,`radi ${n(c[2])} cm`),'Dos cercles de radis '+n(c[1])+' i '+n(c[2])+'.');if(k==='cube')return S(cube(90,150,70,'blue')+cube(320,100,135,'teal')+T(130,290,`aresta ${n(c[1])} cm`)+T(395,290,`aresta ${n(c[2])} cm`),'Dos cubs de costats '+n(c[1])+' i '+n(c[2])+'.');if(k==='pyth')return right(+c[1],+c[2],'?',p.q.includes(' m ')?'m':'cm',p.q.includes('rectangle'));if(k==='missing'){let b=+c[3],cc=+c[2],a=+c[1];return right(b,cc,a,p.q.includes(' m ')?'m':'cm').replace(`b = ${n(b)}`, 'b = ?');}if(k==='catet')return altitude(+c[2],+c[1]-c[2],k);if(k==='height')return altitude(+c[1],+c[2],k);if(k==='nested')return nested(+c[1],+c[2],+c[3]);if(k==='tales')return tales(+c[1],+c[2],+c[3]);if(k==='area'||k==='volume'){let unit=p.q.includes(' m²')?'m²':p.q.includes(' m³')?'m³':k==='area'?'cm²':'cm³';return pair(n(c[1])+' '+unit,'Final: ?',k,+c[2]);}if(k==='rootratio')return pair(n(c[1])+(+c[3]===2?' cm²':' cm³'),n(c[2])+(+c[3]===2?' cm²':' cm³'),+c[3]===2?'area':'volume',+c[4]);if(k==='aa')return S(angleTriangle(50,+c[1],+c[2])+angleTriangle(325,+c[3],+c[4]),'Triangles amb els angles indicats a les dades.');if(k==='length')return pair(n(c[1])+' cm',n(c[2])+' cm','length',+c[2]/c[1]);if(k==='shadow')return S('<path class="line" d="M60 240H500"/><path class="blue" d="M80 240V165L180 240Z"/><path class="teal" d="M250 240V65L490 240Z"/>'+T(70,156,n(c[1])+' m')+T(130,278,n(c[2])+' m')+T(370,278,n(c[3])+' m')+T(236,138,'h = ?','end'),'Triangles semblants formats per altures i ombres a la mateixa hora.');if(k==='scale')return S('<rect class="blue" x="90" y="60" width="360" height="180"/><path class="line" d="M150 185H390 M150 172V198 M390 172V198"/>'+T(270,161,n(c[1])+' cm al dibuix')+T(270,278,'Escala 1:'+c[2]),'Mesura al dibuix i escala.');return '';};
 })();
+
+/* Pràctica de Tales: les mesures es llegeixen de l'enunciat, sense duplicar-les. */
+(()=>{
+const escape=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+window.GEOMETRIA_PRACTICE_DIAGRAM=p=>{
+ if(p.diagram!=='tales')return '';
+ const read=segment=>p.q.match(new RegExp(`${segment} = (\\d+(?:,\\d+)?) cm`))?.[1];
+ const ab=read('AB'),bc=read('BC'),apbp=read('A′B′');
+ if(!ab||!bc||!apbp)return '';
+ const value=s=>Number(s.replace(',','.'));
+ const left=60,right=575,middle=left+(right-left)*value(ab)/(value(ab)+value(bc));
+ const bottom=x=>185+(x-left)*.2;
+ const text=(x,y,label,attrs='')=>`<text x="${x}" y="${y}" text-anchor="middle" ${attrs}>${escape(label)}</text>`;
+ const label=(segment,measure,x,y,unknown=false)=>text(x,y,`${segment} = ${measure} cm`,`data-segment="${segment}"${unknown?' class="practice-unknown"':''}`);
+ const vertices=[['A','A′',left],['B','B′',middle],['C','C′',right]];
+ const points=vertices.map(([a,b,x])=>`<circle cx="${x}" cy="120" r="4"/><circle cx="${x}" cy="${bottom(x)}" r="4"/>${text(x-15,105,a,'class="practice-point"')}${text(x+17,bottom(x)+25,b,'class="practice-point"')}`).join('');
+ const description=`AB = ${ab} cm; BC = ${bc} cm; A′B′ = ${apbp} cm; B′C′ és la mesura desconeguda. AA′, BB′ i CC′ són paral·leles.`;
+ return `<figure class="practice-figure"><svg viewBox="0 0 640 370" role="img" aria-label="${escape(description)}"><path class="line" d="M24 120H610 M24 ${bottom(24)}L610 ${bottom(610)}"/><path class="accent" d="M${left} 83V310 M${middle} 83V310 M${right} 83V310"/>${points}${label('AB',ab,(left+middle)/2,57)}${label('BC',bc,(middle+right)/2,57)}${label('A′B′',apbp,(left+middle)/2,351)}${label('B′C′','?',(middle+right)/2,351,true)}</svg><figcaption>Esquema orientatiu. Les mesures són les de l’enunciat.</figcaption></figure>`;
+};
+})();
