@@ -28,6 +28,17 @@ function rightTriangle(p){
  const label=(x,y,t,color)=>`<text x="${x}" y="${y}" text-anchor="middle" fill="${color}" font-size="25" font-weight="700">${esc(t)}</text>`;
  return `<div class="tales-drawing"><svg viewBox="0 0 410 275" role="img" aria-label="${esc(detail)}"><path d="M105 40V220H355Z" fill="#eaf2ff" stroke="#1759a8" stroke-width="4"/><path d="M105 199H126V220" fill="none" stroke="#bd5800" stroke-width="4"/>${label(255,105,labels[0],'#1759a8')}${label(49,138,labels[1],'#172a41')}${label(230,257,labels[2],'#172a41')}</svg></div>`;
 }
-function figure(p){if(p.mode==='right')return rightTriangle(p);if(p.mode==='rails')return rails(p);if(p.mode==='text')return `<span class="tales-option-text">${esc(p.text)}</span>`;if(p.mode==='number')return `<span class="tales-number">${esc(p.value)} <small>${esc(p.unit)}</small></span>`;if(p.mode==='proportion')return `<span class="tales-equation">${math([['frac',...p.left],' = ',['frac',...p.right]])}</span>`;return '';}
+
+function projection(p){
+ const x=105+270*p.m/(p.m+p.n);
+ const y=214-Math.sqrt((x-105)*(375-x));
+ const label=key=>key===p.unknown?key+' = ?':p.shown.includes(key)?key+' = '+String(Math.round(p.values[key]*100)/100).replace('.',',')+' '+p.unit:key;
+ const labels=[['b',(105+x)/2-34,(y+214)/2-14],['c',(375+x)/2+34,(y+214)/2-14],['h',x+37,172],['m',(105+x)/2,243],['n',(375+x)/2,243],['a',240,288]];
+ const detail=labels.map(([key])=>label(key)).join('; ');
+ const ux=(105-x)/Math.hypot(105-x,214-y),uy=(214-y)/Math.hypot(105-x,214-y);
+ const marker='M'+(x+ux*12)+' '+(y+uy*12)+' l'+(uy*12)+' '+(-ux*12)+' l'+(-ux*12)+' '+(-uy*12);
+ return '<div class="tales-drawing"><svg viewBox="0 0 480 305" role="img" aria-label="'+esc('Triangle rectangle. L’altura separa m i n. '+detail)+'"><path d="M105 214 L'+x+' '+y+' L375 214Z" fill="#eaf2ff" stroke="#1759a8" stroke-width="4"/><path d="M'+x+' '+y+'V214 M'+x+' 201h13v13" stroke="#ae5400" stroke-width="3" fill="none"/><path d="'+marker+'" stroke="#1759a8" stroke-width="2" fill="none"/><path d="M105 253v9h270v-9" stroke="#007763" stroke-width="2" fill="none"/>'+labels.map(([key,lx,ly])=>'<text x="'+lx+'" y="'+ly+'" text-anchor="middle" font-size="21" fill="'+(key===p.unknown?'#9c3c00':'#172a41')+'">'+esc(label(key))+'</text>').join('')+'</svg></div>';
+}
+function figure(p){if(p.mode==='projection')return projection(p);if(p.mode==='right')return rightTriangle(p);if(p.mode==='rails')return rails(p);if(p.mode==='text')return `<span class="tales-option-text">${esc(p.text)}</span>`;if(p.mode==='number')return `<span class="tales-number">${esc(p.value)} <small>${esc(p.unit)}</small></span>`;if(p.mode==='proportion')return `<span class="tales-equation">${math([['frac',...p.left],' = ',['frac',...p.right]])}</span>`;return '';}
 const api={figure,math,description};if(typeof module!=='undefined'&&module.exports)module.exports=api;else window.TALES_ESCAPE_DIAGRAMS=api;
 })();
