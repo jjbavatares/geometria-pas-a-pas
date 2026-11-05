@@ -118,7 +118,7 @@ function submit(state,id){
  if(state.resolved||!q||state.attempts>state.hints||state.tried.includes(id)||!q.choices.some(c=>c.id===id))return 'ignored';
  state.attempts++;state.selected=id;state.tried.push(id);
  const good=id===q.correct;
- if(good||state.attempts===3){state.resolved=true;state[good?'correct':'wrong']++;state.results.push({question:q,good});return good?'correct':'wrong';}
+ if(good||state.attempts===3){state.resolved=true;state[good?'correct':'wrong']++;state.results.push({question:q,good,attempts:state.attempts,hints:state.hints});return good?'correct':'wrong';}
  return 'retry';
 }
 function useHint(state,number){

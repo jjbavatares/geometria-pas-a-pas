@@ -47,7 +47,7 @@ function trial(focus=null){
 }
 function results(){
  const good=state.correct>=4;window.ESCAPE_AUDIO.play(good?'victory':'defeat');
- root.innerHTML=`<main id="game-main" class="escape-main results-main" tabindex="-1">${scoreboard()}<section class="result-panel"><div class="result-hero ${good?'':'practice'}"><p class="escape-kicker">${good?'VICTÒRIA · HAS ARRIBAT AL FAR':'PODEM TORNAR-HO A INTENTAR'}</p><h1 id="result-title" tabindex="-1">${good?'Victòria! Enhorabona!':'Missió no superada. Tornem-ho a provar!'}</h1><p>${good?'Has aplicat bé la proporcionalitat.':'Practiquem una altra vegada amb proves noves.'} <strong>Totes les longituds canvien pel mateix factor.</strong></p>${coach('Has fet <strong>'+state.correct+' encerts de 5</strong>. Cada prova ens ajuda a aprendre.',good?portraits[4]:portraits[2])}<div class="escape-actions"><button class="escape-btn" data-action="start">Torna a jugar</button><button class="escape-btn secondary" data-action="review">Revisa les cinc proves</button></div></div><figure class="escape-art result-art"><img src="assets/escape-${good?'far':'illa'}.png" width="1672" height="941" alt="${good?'El far il·luminat de l’illa':'L’illa i el camí per practicar una altra vegada'}"><figcaption>${good?'Has completat la missió!':'La Guspira t’espera per tornar a practicar.'}</figcaption></figure></section></main>`;
+ root.innerHTML=`<main id="game-main" class="escape-main results-main" tabindex="-1">${scoreboard()}<section class="result-panel"><div class="result-hero ${good?'':'practice'}"><p class="escape-kicker">${good?'VICTÒRIA · HAS ARRIBAT AL FAR':'PODEM TORNAR-HO A INTENTAR'}</p><h1 id="result-title" tabindex="-1">${good?'Victòria! Enhorabona!':'Missió no superada. Tornem-ho a provar!'}</h1><p>${good?'Has aplicat bé la proporcionalitat.':'Practiquem una altra vegada amb proves noves.'} <strong>Totes les longituds canvien pel mateix factor.</strong></p>${coach('Has fet <strong>'+state.correct+' encerts de 5</strong>. Cada prova ens ajuda a aprendre.',good?portraits[4]:portraits[2])}<div class="escape-actions">${window.ESCAPE_REPORT.button}<button class="escape-btn secondary" data-action="start">Torna a jugar</button><button class="escape-btn secondary" data-action="review">Revisa les cinc proves</button></div></div><figure class="escape-art result-art"><img src="assets/escape-${good?'far':'illa'}.png" width="1672" height="941" alt="${good?'El far il·luminat de l’illa':'L’illa i el camí per practicar una altra vegada'}"><figcaption>${good?'Has completat la missió!':'La Guspira t’espera per tornar a practicar.'}</figcaption></figure></section></main>`;
  document.getElementById('result-title').focus({preventScroll:true});window.scrollTo(0,0);
 }
 function start(){
@@ -126,16 +126,21 @@ root.addEventListener('click',event=>{
  if(action==='next'&&state.resolved&&solutionStep===state.questions[state.index].explanation.length-1){closeDialog();state.index++;if(state.index===5)results();else{Object.assign(state,{attempts:0,hints:0,selected:null,tried:[],resolved:false});view='observe';trial('trial-title');window.scrollTo(0,0);}}
 });
 document.addEventListener('click',event=>{
+ if(event.target.closest('[data-progress-report]')){window.ESCAPE_REPORT.show(state,4);return;}
  const homeLink=event.target.closest('[data-return-home]');
  if(!homeLink||event.ctrlKey||event.metaKey||event.shiftKey||event.altKey)return;
- event.preventDefault();window.ESCAPE_AUDIO.stop();
- const homeUrl=new URL(homeLink.getAttribute('href'),location.href).href;
- if(new URLSearchParams(location.search).get('popup')==='1'||window.opener){
-  try{if(window.opener&&!window.opener.closed){window.opener.location.href=homeUrl;window.opener.focus();}}catch{}
-  window.close();
-  // Directly opened tabs cannot always be closed by the browser.
-  setTimeout(()=>location.replace(homeUrl),250);
- }else location.assign(homeUrl);
+ event.preventDefault();
+ const leave=()=>{
+  window.ESCAPE_AUDIO.stop();
+  const homeUrl=new URL(homeLink.getAttribute('href'),location.href).href;
+  if(new URLSearchParams(location.search).get('popup')==='1'||window.opener){
+   try{if(window.opener&&!window.opener.closed){window.opener.location.href=homeUrl;window.opener.focus();}}catch{}
+   window.close();
+   // Directly opened tabs cannot always be closed by the browser.
+   setTimeout(()=>location.replace(homeUrl),250);
+  }else location.assign(homeUrl);
+ };
+ if(!window.ESCAPE_REPORT.show(state,4,leave))leave();
 });
 intro();
 })();

@@ -67,3 +67,9 @@ body.escape-body{height:100dvh;display:flex;flex-direction:column;overflow:hidde
 .escape-body .answer-option.revealed-answer,.escape-body .picture-option.revealed-answer{background:#e8f0ff;border-color:#1749b0;color:#1749b0;opacity:1;box-shadow:none}
 .escape-body .picture-option.revealed-answer .picture-letter{background:white;border-color:#1749b0;color:#1749b0}
 @media(max-width:680px){.escape-body .solution-status{font-size:14px;padding:8px 10px;margin-bottom:8px}}
+
+.progress-dialog label{display:block;font-weight:700;margin:14px 0 4px}
+.progress-dialog input{width:100%;font:inherit;border:2px solid var(--ink);border-radius:8px;background:#fff;color:var(--ink);padding:5px 10px}
+.progress-dialog .progress-summary{font-weight:700;margin:8px 0;color:#086140}
+.progress-dialog .dialog-actions{flex-wrap:wrap;justify-content:flex-start}
+.progress-dialog .progress-feedback{margin-top:8px;color:#086140}
