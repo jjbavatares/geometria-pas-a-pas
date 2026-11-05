@@ -3,6 +3,9 @@
 'use strict';
 const root=document.getElementById('app');
 const lessons={
+ "Raó de semblança de longitud":{"slug":"longitud","portrait":"observa","alt":"La Guspira, guia de l’illa","title":"El taller de les maquetes","art":"escape-bosc.png","scene":"Un racó de l’illa de la geometria en estil còmic","intro":"Compara els costats corresponents de dues maquetes.","button":"Comença el joc"},
+ "Raó de semblança d’àrea":{"slug":"area","portrait":"explica","alt":"La Guspira, guia de l’illa","title":"El jardí dels mosaics","art":"escape-jardi.png","scene":"Un racó de l’illa de la geometria en estil còmic","intro":"Descobreix com canvia la superfície dels mosaics.","button":"Comença el joc"},
+ "Raó de semblança de volum":{"slug":"volum","portrait":"pensa","alt":"La Guspira, guia de l’illa","title":"El magatzem de les caixes","art":"escape-temple.png","scene":"Un racó de l’illa de la geometria en estil còmic","intro":"Calcula com canvia l’espai que ocupen les caixes.","button":"Comença el joc"},
  'Teorema del catet':{slug:'catet',portrait:'observa',alt:'La Guspira amb llibreta i llapis',title:'La passarel·la dels catets',art:'escape-pont.png',scene:'Una passarel·la de còmic a l’illa',intro:'Relaciona cada catet amb la seva projecció i completa la passarel·la.',button:'Ves a la passarel·la'},
  'Teorema de l’altura':{slug:'altura',portrait:'explica',alt:'La Guspira mostrant un escaire',title:'La torre de l’altura',art:'escape-far.png',scene:'Una torre de còmic vora el mar',intro:'Identifica els dos trams de la hipotenusa i calcula l’altura per reforçar la torre.',button:'Puja a la torre'},
  'Teorema de Tales':{slug:'tales',portrait:'paralleles',alt:'La Guspira de mig cos, mostrant dues regles paral·leles'},

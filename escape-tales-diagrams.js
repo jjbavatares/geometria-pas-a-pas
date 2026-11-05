@@ -39,6 +39,23 @@ function projection(p){
  const marker='M'+(x+ux*12)+' '+(y+uy*12)+' l'+(uy*12)+' '+(-ux*12)+' l'+(-ux*12)+' '+(-uy*12);
  return '<div class="tales-drawing"><svg viewBox="0 0 480 305" role="img" aria-label="'+esc('Triangle rectangle. L’altura separa m i n. '+detail)+'"><path d="M105 214 L'+x+' '+y+' L375 214Z" fill="#eaf2ff" stroke="#1759a8" stroke-width="4"/><path d="M'+x+' '+y+'V214 M'+x+' 201h13v13" stroke="#ae5400" stroke-width="3" fill="none"/><path d="'+marker+'" stroke="#1759a8" stroke-width="2" fill="none"/><path d="M105 253v9h270v-9" stroke="#007763" stroke-width="2" fill="none"/>'+labels.map(([key,lx,ly])=>'<text x="'+lx+'" y="'+ly+'" text-anchor="middle" font-size="21" fill="'+(key===p.unknown?'#9c3c00':'#172a41')+'">'+esc(label(key))+'</text>').join('')+'</svg></div>';
 }
-function figure(p){if(p.mode==='projection')return projection(p);if(p.mode==='right')return rightTriangle(p);if(p.mode==='rails')return rails(p);if(p.mode==='text')return `<span class="tales-option-text">${esc(p.text)}</span>`;if(p.mode==='number')return `<span class="tales-number">${esc(p.value)} <small>${esc(p.unit)}</small></span>`;if(p.mode==='proportion')return `<span class="tales-equation">${math([['frac',...p.left],' = ',['frac',...p.right]])}</span>`;return '';}
+
+function scaleModel(p){
+ const label=(x,y,t)=>'<text x="'+x+'" y="'+y+'" text-anchor="middle" fill="#172a41" font-size="21">'+esc(t)+'</text>';
+ function object(cx,size,color){
+  const x=cx-size/2,y=190-size*.65;
+  if(p.power===3){
+   const depth=size*.22;
+   return '<path d="M'+x+' '+y+'h'+size+'v'+size*.65+'h-'+size+'Z M'+x+' '+y+'l'+depth+' -'+depth+'h'+size+'l-'+depth+' '+depth+' M'+(x+size+depth)+' '+(y-depth)+'v'+size*.65+'l-'+depth+' '+depth+'" fill="'+color+'" stroke="#1759a8" stroke-width="3"/>';
+  }
+  return '<rect x="'+x+'" y="'+y+'" width="'+size+'" height="'+size*.65+'" fill="'+color+'" stroke="#1759a8" stroke-width="3"/>';
+ }
+ const factor=Math.max(1,p.scale),first=135/factor,second=first*p.scale;
+ const value=n=>String(n).replace('.',',');
+ const measure=(n)=>n==null?'':n==='?'?'? '+p.unit:value(n)+' '+p.unit;
+ const detail='Model inicial: '+measure(p.before)+'. Model final: '+measure(p.after)+'. '+(p.k===null?'':'k = '+value(p.k)+'.');
+ return '<div class="tales-drawing"><svg viewBox="0 0 470 270" role="img" aria-label="'+esc(detail)+'">'+(p.k===null?'':label(235,38,'k = '+value(p.k)))+object(115,first,'#dbeafe')+object(340,second,'#c9eee4')+label(115,220,'Model inicial')+label(340,220,'Model final')+label(115,250,measure(p.before))+label(340,250,measure(p.after))+'</svg></div>';
+}
+function figure(p){if(p.mode==='scale-model')return scaleModel(p);if(p.mode==='projection')return projection(p);if(p.mode==='right')return rightTriangle(p);if(p.mode==='rails')return rails(p);if(p.mode==='text')return `<span class="tales-option-text">${esc(p.text)}</span>`;if(p.mode==='number')return `<span class="tales-number">${esc(p.value)} <small>${esc(p.unit)}</small></span>`;if(p.mode==='proportion')return `<span class="tales-equation">${math([['frac',...p.left],' = ',['frac',...p.right]])}</span>`;return '';}
 const api={figure,math,description};if(typeof module!=='undefined'&&module.exports)module.exports=api;else window.TALES_ESCAPE_DIAGRAMS=api;
 })();

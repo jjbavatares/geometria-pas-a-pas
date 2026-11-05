@@ -56,7 +56,7 @@ function start(){
  window.ESCAPE_AUDIO.stop();window.ESCAPE_AUDIO.unlock();
  let previous=[];
  try{const stored=JSON.parse(localStorage.getItem(theme.storage)||'[]');if(Array.isArray(stored))previous=stored;}catch{}
- const questions=D.select(previous);state=D.newState(questions);trialPortraits=portraitsForTrials();
+ const questions=D.select(theme.historyLimit ? previous.slice(total-theme.historyLimit) : previous);state=D.newState(questions);trialPortraits=portraitsForTrials();
  try{localStorage.setItem(theme.storage,JSON.stringify([...previous.slice(theme.historyLimit ? total-theme.historyLimit : previous.length), ...questions.map(q=>q.id)]));}catch{}
  trial('trial-title');window.scrollTo(0,0);
 }
