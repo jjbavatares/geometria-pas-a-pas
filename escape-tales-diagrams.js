@@ -22,6 +22,12 @@ function rails(p){
  const detail=p.labelsOnly?'r, s i t són les rectes taronges; u i v són les blaves.':p.lettersOnly?`Tram destacat: ${p.highlight}. a i b entre r i s; a′ i b′ entre s i t.`:`a = ${p.a} ${p.unit}; b = ${p.b} ${p.unit}; a′ = ${p.unknown==='c'?'x':p.c} ${p.unit}; b′ = ${p.unknown==='d'?'x':p.d} ${p.unit}.`;
  return `<div class="tales-drawing"><svg viewBox="0 0 510 335" role="img" aria-label="${esc(detail)}">${drawing}</svg><p class="tales-legend">${p.labelsOnly?'Rectes taronges: r, s i t · Rectes blaves: u i v':'r, s i t: <strong>paral·leles</strong> · u i v: secants'}</p>${p.labelsOnly?'':'<p class="tales-prime">a′ i b′ es llegeixen «a prima» i «b prima».</p>'}</div>`;
 }
-function figure(p){if(p.mode==='rails')return rails(p);if(p.mode==='text')return `<span class="tales-option-text">${esc(p.text)}</span>`;if(p.mode==='number')return `<span class="tales-number">${esc(p.value)} <small>${esc(p.unit)}</small></span>`;if(p.mode==='proportion')return `<span class="tales-equation">${math([['frac',...p.left],' = ',['frac',...p.right]])}</span>`;return '';}
+function rightTriangle(p){
+ const labels=['a','b','c'].map(key=>p.unknown===key?`${key} = ?`:p.unit?`${key} = ${p[key]} ${p.unit}`:key);
+ const detail=`Triangle rectangle amb l’angle de 90° entre b i c. ${labels.join('; ')}.`;
+ const label=(x,y,t,color)=>`<text x="${x}" y="${y}" text-anchor="middle" fill="${color}" font-size="25" font-weight="700">${esc(t)}</text>`;
+ return `<div class="tales-drawing"><svg viewBox="0 0 410 275" role="img" aria-label="${esc(detail)}"><path d="M105 40V220H355Z" fill="#eaf2ff" stroke="#1759a8" stroke-width="4"/><path d="M105 199H126V220" fill="none" stroke="#bd5800" stroke-width="4"/>${label(255,105,labels[0],'#1759a8')}${label(49,138,labels[1],'#172a41')}${label(230,257,labels[2],'#172a41')}</svg></div>`;
+}
+function figure(p){if(p.mode==='right')return rightTriangle(p);if(p.mode==='rails')return rails(p);if(p.mode==='text')return `<span class="tales-option-text">${esc(p.text)}</span>`;if(p.mode==='number')return `<span class="tales-number">${esc(p.value)} <small>${esc(p.unit)}</small></span>`;if(p.mode==='proportion')return `<span class="tales-equation">${math([['frac',...p.left],' = ',['frac',...p.right]])}</span>`;return '';}
 const api={figure,math,description};if(typeof module!=='undefined'&&module.exports)module.exports=api;else window.TALES_ESCAPE_DIAGRAMS=api;
 })();
