@@ -5,11 +5,9 @@ const root=document.getElementById('app');
 function enhance(){
  const content=root.querySelector('.content');
  if(content?.querySelector('.lesson-head h1')?.textContent!=='Triangles semblants'||content.querySelector('#escape-triangles'))return;
- const guide=content.querySelector(':scope > .guide');
- const image=guide?.querySelector('img');
- if(image){image.src='assets/guspira-explica.png';image.alt='La Guspira de mig cos, explicant amb un escaire';guide.classList.add('triangles-guide');}
+ content.querySelector(':scope > .guide')?.classList.add('triangles-guide');
  const banner=document.createElement('section');banner.id='escape-triangles';banner.className='escape-banner triangles-banner';banner.setAttribute('aria-labelledby','escape-triangles-title');
- banner.innerHTML=`<img src="assets/escape-far.png" width="1672" height="941" alt="El far de l’illa amb arbres geomètrics" loading="lazy"><div><p class="escape-kicker">TRIANGLES SEMBLANTS · ESCAPE ROOM</p><h2 id="escape-triangles-title">El far dels triangles</h2><p>El far s’ha apagat. Obre <strong>cinc panys</strong> amb la Guspira: compara angles i costats, practica <strong>AA, CCC i CAC</strong> i torna a encendre la llum.</p><p>Cinc opcions, dues ajudes i una explicació pas a pas. <strong>Sense límit de temps.</strong></p><a class="escape-btn" href="escape-triangles.html" target="_blank" rel="noopener" data-triangles-launch>Entra al far ↗</a><p class="new-window-note">S’obre en una finestra nova.</p><p id="triangles-fallback" class="new-window-note" hidden>Si no s’ha obert, <a href="escape-triangles.html">obre el joc aquí</a>.</p></div>`;
+ banner.innerHTML=`<img src="assets/escapes/cartell-triangles.webp" width="1672" height="941" alt="El far de l’illa amb arbres geomètrics" loading="lazy"><div><p class="escape-kicker">TRIANGLES SEMBLANTS · ESCAPE ROOM</p><h2 id="escape-triangles-title">El far dels triangles</h2><p>El far s’ha apagat. Obre <strong>cinc panys</strong> amb la Guspira: compara angles i costats, practica <strong>AA, CCC i CAC</strong> i torna a encendre la llum.</p><p>Cinc opcions, dues ajudes i una explicació pas a pas. <strong>Sense límit de temps.</strong></p><a class="escape-btn" href="escape-triangles.html" target="_blank" rel="noopener" data-triangles-launch>Entra al far ↗</a><p class="new-window-note">S’obre en una finestra nova.</p><p id="triangles-fallback" class="new-window-note" hidden>Si no s’ha obert, <a href="escape-triangles.html">obre el joc aquí</a>.</p></div>`;
  content.querySelector('#exemple')?.before(banner);
  const nav=content.querySelector('.lesson-index');
  const link=document.createElement('a');link.href='#escape-triangles';link.textContent='Escape Room';link.dataset.trianglesJump='';nav?.append(link);
