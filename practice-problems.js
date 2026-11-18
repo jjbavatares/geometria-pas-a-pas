@@ -416,23 +416,33 @@ window.GEOMETRIA_PRACTICE = {
     "C": [
       {
         "q": "Un triangle rectangle té catets de 6 cm i 8 cm. Calcula la hipotenusa.",
-        "answer": "10 cm."
+        "answer": "10 cm.",
+        "diagram": "pythagoras",
+        "figure": {"base":6,"height":8,"hypotenuse":null,"unit":"cm","scene":"triangle"}
       },
       {
         "q": "Un triangle rectangle té catets de 8 cm i 15 cm. Calcula la hipotenusa.",
-        "answer": "17 cm."
+        "answer": "17 cm.",
+        "diagram": "pythagoras",
+        "figure": {"base":8,"height":15,"hypotenuse":null,"unit":"cm","scene":"triangle"}
       },
       {
         "q": "Una escala de mà forma un triangle rectangle amb una paret vertical i el terra horitzontal. El peu és a 3 m de la paret i arriba a 4 m d’altura. Quant fa l’escala?",
-        "answer": "5 m."
+        "answer": "5 m.",
+        "diagram": "pythagoras",
+        "figure": {"base":3,"height":4,"hypotenuse":null,"unit":"m","scene":"ladder"}
       },
       {
         "q": "Un triangle rectangle té hipotenusa de 10 cm i un catet de 8 cm. Calcula l’altre catet.",
-        "answer": "6 cm."
+        "answer": "6 cm.",
+        "diagram": "pythagoras",
+        "figure": {"base":null,"height":8,"hypotenuse":10,"unit":"cm","scene":"triangle"}
       },
       {
         "q": "Una pantalla rectangular mesura 5 cm d’amplada i 12 cm d’altura. Calcula la diagonal.",
-        "answer": "13 cm."
+        "answer": "13 cm.",
+        "diagram": "pythagoras",
+        "figure": {"base":5,"height":12,"hypotenuse":null,"unit":"cm","scene":"screen"}
       }
     ],
     "B": [

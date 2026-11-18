@@ -17,7 +17,49 @@ window.GEOMETRIA_DIAGRAM=p=>{let c=p.check,k=c[0];if(k==='rectangles')return rec
 /* Pràctica de Tales: les mesures es llegeixen de l'enunciat, sense duplicar-les. */
 (()=>{
 const escape=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+
+function pythagorasPractice(problem){
+ const {base,height,hypotenuse,unit,scene}=problem.figure;
+ const widthValue=base??Math.sqrt(hypotenuse**2-height**2);
+ const heightValue=height??Math.sqrt(hypotenuse**2-base**2);
+ const scale=Math.min(270/widthValue,205/heightValue);
+ const width=widthValue*scale,tall=heightValue*scale;
+ const left=155,bottom=290,right=left+width,top=bottom-tall;
+ const label=(x,y,value,unknown=false,anchor='middle')=>
+  '<text x="'+x+'" y="'+y+'" text-anchor="'+anchor+'"'+
+  (unknown?' class="practice-unknown"':'')+'>'+escape(value)+'</text>';
+ const dimension=value=>value===null?'?':String(value).replace('.',',')+' '+unit;
+ const target=scene==='screen'?'Diagonal':scene==='ladder'?'Escala':'Hipotenusa';
+ let shape=scene==='screen'
+  ?'<rect class="blue" x="'+left+'" y="'+top+'" width="'+width+'" height="'+tall+'" rx="3"/>'
+  :'<path class="teal" d="M'+left+' '+bottom+'H'+right+'L'+left+' '+top+'Z"/>';
+ shape+='<path class="line" d="M'+left+' '+(bottom-17)+'h17v17"/>';
+ if(scene==='screen'){
+  shape+='<path class="accent" d="M'+left+' '+top+'L'+right+' '+bottom+'"/>';
+ }else if(scene==='ladder'){
+  shape+='<path class="line" d="M'+left+' '+(top-20)+'V'+(bottom+7)+' M'+(left-12)+' '+bottom+'H'+(right+30)+'"/>';
+  const length=Math.hypot(width,tall),nx=-tall/length*5,ny=width/length*5;
+  shape+='<path class="accent" d="M'+(left+nx)+' '+(top+ny)+'L'+(right+nx)+' '+(bottom+ny)+
+   ' M'+(left-nx)+' '+(top-ny)+'L'+(right-nx)+' '+(bottom-ny)+'"/>';
+  for(let i=1;i<9;i++){
+   const x=left+width*i/9,y=top+tall*i/9;
+   shape+='<path class="accent" d="M'+(x+nx)+' '+(y+ny)+'L'+(x-nx)+' '+(y-ny)+'"/>';
+  }
+  shape+=label(left-18,top-16,'Paret',false,'end')+label(right+35,bottom-14,'Terra',false,'start');
+ }
+ shape+=label(left+width/2,bottom+38,dimension(base),base===null);
+ shape+=label(left-18,bottom-tall/2,dimension(height),height===null,'end');
+ shape+=label(scene==='screen'?right+25:left+width/2+25,bottom-tall/2-25,target+' = '+dimension(hypotenuse),hypotenuse===null,'start');
+ const description=(scene==='screen'?'Pantalla rectangular amb la diagonal dibuixada. ':
+  scene==='ladder'?'Escala recolzada en una paret vertical sobre un terra horitzontal. ':'Triangle rectangle. ')+
+  'Base '+dimension(base)+'. Altura '+dimension(height)+'. '+target+' '+dimension(hypotenuse)+
+  '. El quadrat petit marca l’angle de 90 graus.';
+ return '<figure class="practice-figure"><svg viewBox="0 0 640 350" role="img" aria-label="'+escape(description)+'">'+
+  shape+'</svg><figcaption>Esquema orientatiu. Les mesures són les de l’enunciat.</figcaption></figure>';
+}
+
 window.GEOMETRIA_PRACTICE_DIAGRAM=p=>{
+ if(p.diagram==='pythagoras')return pythagorasPractice(p);
  if(p.diagram!=='tales')return '';
  const read=segment=>p.q.match(new RegExp(`${segment} = (\\d+(?:,\\d+)?) cm`))?.[1];
  const ab=read('AB'),bc=read('BC'),apbp=read('A′B′');
